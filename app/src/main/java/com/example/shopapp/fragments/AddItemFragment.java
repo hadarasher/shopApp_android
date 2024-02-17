@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.shopapp.R;
+import com.example.shopapp.data.MyData;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,9 +69,10 @@ public class AddItemFragment extends Fragment {
 
         String itemName=view.findViewById(R.id.itemNameEditText).toString();
         String description=view.findViewById(R.id.descriptionEditText).toString();
-        String amount=view.findViewById(R.id.amountEditText).toString();
+        int amount=Integer.parseInt(view.findViewById(R.id.amountEditText).toString());
         Button addItemBtn=view.findViewById(R.id.buttonAdd);
         Button cancelBtn=view.findViewById(R.id.buttonCancel);
+        TextView errorMsg=view.findViewById(R.id.errorAddText);
 
         //add listener to cancel button. If clicked - returns to shop fragment
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +82,20 @@ public class AddItemFragment extends Fragment {
             }
         });
 
-        //add click listener to add item button. If clicked check all values and if valid add item to data set
-        addItemBtn.setOnClickListener();
-
+        //add click listener to add item button. If clicked check all values and if valid add item to data set, then returns to shop fragment
+        addItemBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (itemName != null && description != null && amount >= 0) {
+                    MyData.itemsName.add(itemName);
+                    MyData.itemsDescription.add(description);
+                    MyData.itemsAmount.add(amount);
+                    Navigation.findNavController(view).navigate(R.id.action_addItemFragment_to_shopFragment);
+                } else {
+                    errorMsg.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         return view;
     }

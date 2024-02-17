@@ -1,4 +1,4 @@
-package com.example.shopapp.activities;
+package com.example.shopapp.data;
 
 public class ItemDataModel {
 
@@ -6,6 +6,12 @@ public class ItemDataModel {
     private String description;
     private int amount;
 
+    public ItemDataModel(String name, String description,int amount)
+    {
+        this.name=name;
+        this.description=description;
+        this.amount=amount;
+    }
     public String getName() {
         return name;
     }
