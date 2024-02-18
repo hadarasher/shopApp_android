@@ -5,4 +5,9 @@
     <color name="peach">#DDB2A7</color>
     <color name="yellow">#ECD16F</color>
     <color name="brown">#874F3E</color>
+    <color name="blue">#004B84</color>
+    <color name="soft_blue">#FF79C9FA</color>
+    <color name="dark_pink">#DF608F</color>
+    <color name="light_pink">#FFA5C6</color>
+    <color name="soft_pink">#F7D8DE</color>
 </resources>

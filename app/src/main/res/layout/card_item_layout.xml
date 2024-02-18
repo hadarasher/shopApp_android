@@ -10,7 +10,7 @@
         android:orientation="vertical"
         android:padding="5dp"
         android:layout_marginBottom="1dp"
-        android:background="@color/yellow">
+        android:background="@color/soft_pink">
 
         <TextView
             android:id="@+id/itemNameCardView"
@@ -34,6 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
                 android:textColor="@color/brown"
+                android:textStyle="bold"
                 android:text="Description: " />
 
             <TextView
@@ -41,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/brown"
+                android:textStyle="bold"
                 android:layout_weight="0.3" />
         </LinearLayout>
 
