@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/yellow"
+    android:background="@color/peach"
     tools:context=".fragments.ShopFragment">
 
     <TextView
@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:padding="15dp"
         android:text="@string/hello_blank_fragment"
+        android:textColor="@color/brown"
         android:textSize="26sp" />
 
     <Button

@@ -13,9 +13,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.shopapp.R;
+import com.example.shopapp.data.MyData;
 
 import java.util.HashMap;
 
@@ -32,7 +34,6 @@ public class LoginFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
     // TODO: Rename and change types of parameters
-    private static HashMap<String,String> users;
     private Dialog registrationDialog;
 
 
@@ -41,7 +42,6 @@ public class LoginFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
-        users=new HashMap<>();
         fragment.setArguments(args);
         return fragment;
     }
@@ -75,11 +75,11 @@ public class LoginFragment extends Fragment {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String username=usernameEdit.toString();
-                String password=passwordEdit.toString();
+                String username=usernameEdit.getText().toString();
+                String password=passwordEdit.getText().toString();
 
-                if(users.containsKey(username)){
-                    if(password.equals(users.get(username))){
+                if(MyData.users.containsKey(username)){
+                    if(password.equals(MyData.users.get(username))){
                         bundle.putString("username",username);
                         Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_shopFragment,bundle);
                     }else {errorMsg.setVisibility(View.VISIBLE);}
@@ -94,31 +94,49 @@ public class LoginFragment extends Fragment {
                 registrationDialog.setContentView(R.layout.register_dialog_layout);
                 registrationDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-                String username=registrationDialog.findViewById(R.id.regUsernameEditText).toString();
-                String password=registrationDialog.findViewById(R.id.regPasswordEditText).toString();
-                String phone=registrationDialog.findViewById(R.id.regPhoneEditText).toString();
-                TextView errorMsg=registrationDialog.findViewById(R.id.errorMsg);
+                ImageView closeImg=registrationDialog.findViewById(R.id.buttonClose);
+                EditText regUsernameEdit = registrationDialog.findViewById(R.id.regUsernameEditText);
+                EditText regPasswordEdit = registrationDialog.findViewById(R.id.regPasswordEditText);
+                EditText regPhoneEdit = registrationDialog.findViewById(R.id.regPhoneEditText);
+                TextView regErrorMsg = registrationDialog.findViewById(R.id.usernameError);
+                Button buttonReg=registrationDialog.findViewById(R.id.buttonRegisterLayout);
 
-                //check if all user put all details. than check username availability. if available add user to users list
-                if(username!=null&&password!=null&&phone!=null)
-                {
-                    if(users.containsKey(username)){
-                        errorMsg.setVisibility(View.VISIBLE);
-                    }else{
-                        users.put(username,password);
-                        bundle.putString("username",username);
-                        Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_shopFragment,bundle);
+                buttonReg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String username = regUsernameEdit.getText().toString();
+                        String password = regPasswordEdit.getText().toString();
+                        String phone = regPhoneEdit.getText().toString();
+
+                        //check if all user put all details. than check username availability. if available add user to users list
+                        if(!username.isEmpty() && !password.isEmpty() && phone.length()==10)
+                        {
+                            if(MyData.users.containsKey(username)){
+                                regErrorMsg.setVisibility(View.VISIBLE);
+                            }else{
+                                MyData.users.put(username,password);
+                                bundle.putString("username",username);
+                                registrationDialog.dismiss();
+                                Navigation.findNavController(view).navigate(R.id.action_loginFragment2_to_shopFragment,bundle);
+                            }
+                        }else{regErrorMsg.setVisibility(View.VISIBLE);}
                     }
-                }
+                });
+                closeImg.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        registrationDialog.dismiss();
+                    }
+                });
 
+                registrationDialog.show();
             }
         });
+
+
 
 
         return view;
     }
 
-    public void openRegistrationDialog(){
-
-    }
 }

@@ -9,10 +9,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.shopapp.R;
 import com.example.shopapp.data.MyData;
+
+import org.w3c.dom.Text;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -67,18 +70,21 @@ public class AddItemFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_add_item, container, false);
 
-        String itemName=view.findViewById(R.id.itemNameEditText).toString();
-        String description=view.findViewById(R.id.descriptionEditText).toString();
-        int amount=Integer.parseInt(view.findViewById(R.id.amountEditText).toString());
+        EditText textViewItemName=view.findViewById(R.id.itemNameEditText);
+        EditText textViewDescription=view.findViewById(R.id.descriptionEditText);
+        EditText textViewAmount=view.findViewById(R.id.amountEditText);
         Button addItemBtn=view.findViewById(R.id.buttonAdd);
         Button cancelBtn=view.findViewById(R.id.buttonCancel);
         TextView errorMsg=view.findViewById(R.id.errorAddText);
+
+        Bundle bundle=new Bundle();
+        bundle.putString("username",getArguments().getString("username"));
 
         //add listener to cancel button. If clicked - returns to shop fragment
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navigation.findNavController(view).navigate(R.id.action_addItemFragment_to_shopFragment);
+                Navigation.findNavController(view).navigate(R.id.action_addItemFragment_to_shopFragment,bundle);
             }
         });
 
@@ -86,11 +92,16 @@ public class AddItemFragment extends Fragment {
         addItemBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (itemName != null && description != null && amount >= 0) {
+                String itemName=textViewItemName.getText().toString();
+                String description=textViewDescription.getText().toString();
+                int amount=Integer.parseInt(textViewAmount.getText().toString());
+
+                if (!itemName.isEmpty() && !description.isEmpty() && amount >= 0) {
                     MyData.itemsName.add(itemName);
                     MyData.itemsDescription.add(description);
                     MyData.itemsAmount.add(amount);
-                    Navigation.findNavController(view).navigate(R.id.action_addItemFragment_to_shopFragment);
+
+                    Navigation.findNavController(view).navigate(R.id.action_addItemFragment_to_shopFragment,bundle);
                 } else {
                     errorMsg.setVisibility(View.VISIBLE);
                 }

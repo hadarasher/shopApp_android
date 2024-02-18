@@ -21,6 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
+            android:textColor="@color/brown"
             android:text="Item name:" />
 
         <EditText
@@ -30,6 +31,7 @@
             android:layout_weight="0.3"
             android:ems="10"
             android:hint="Insert item name"
+            android:textColor="@color/brown"
             android:inputType="text" />
     </LinearLayout>
 
@@ -44,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
+            android:textColor="@color/brown"
             android:text="Description: " />
 
         <EditText
@@ -53,6 +56,7 @@
             android:layout_weight="0.3"
             android:ems="10"
             android:hint="Insert description"
+            android:textColor="@color/brown"
             android:inputType="text" />
     </LinearLayout>
 
@@ -67,6 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.7"
+            android:textColor="@color/brown"
             android:text="Amount:" />
 
         <EditText
@@ -76,6 +81,7 @@
             android:layout_weight="0.3"
             android:ems="10"
             android:hint="Insert amount"
+            android:textColor="@color/brown"
             android:inputType="numberDecimal" />
 
     </LinearLayout>
